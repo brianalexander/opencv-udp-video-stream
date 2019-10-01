@@ -9,10 +9,10 @@ server_address = ('localhost', 12346)
 
 # fps quality resolution-x resolution-y
 fps = 30
-quality = 80
-resolution_x = 640
-resolution_y = 480
+quality = 100
+resolution_x = 320
+resolution_y = 240
 
-message = struct.pack("! B B 2H", fps, quality, resolution_x, resolution_y)
+message = struct.pack("! B B H H", fps, quality, resolution_x, resolution_y)
 
 sock.sendto(message, server_address)
