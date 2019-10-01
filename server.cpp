@@ -15,6 +15,7 @@
 // how to compile: g++ -ggdb server.cpp -o server `pkg-config --cflags --libs opencv`
 int main(int argc, char *argv[])
 {
+    // cv::namedWindow()
     int sockfd;
     char *tempBuf = new char[PACK_SIZE];
 
