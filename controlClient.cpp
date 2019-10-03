@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	
 	//send the socket
 	sendto(sockfd, (const char *)message, strlen(message), 0, (const struct sockaddr *) &servaddr, sizeof(servaddr));
-	printf("Sent message\n");
+	printf("Sent message\n"); //example of message sent: 30,20,450,450 (sent as a char)
 	return 0;
 }
 
