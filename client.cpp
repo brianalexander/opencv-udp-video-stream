@@ -26,7 +26,7 @@ unsigned char updateStreamConfigurationFlag = 0;
 
 void videoStream(cv::VideoCapture &vidCap, int sockfd, sockaddr_in &servaddr, socklen_t servAddrLen);
 
-// how to compile: g++ -ggdb client.cpp -o client `pkg-config --cflags --libs opencv`
+// how to compile: g++ -ggdb client.cpp -o client `pkg-config --cflags --libs opencv` -pthread
 // Ex usage: [filename] input-device server-ip port frames(0-30) jpg-quality(0-100) || 5 arguments
 // Ex usage: ./client 0 10.67.111.236 12345 30 90
 int main(int argc, char *argv[])
@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
     //
     // BEGIN SETTING UP VIDEO STREAM THREAD
     //
-    resolutionX = 1280;
-    resolutionY = 720;
+    resolutionX = 640;
+    resolutionY = 480;
 
     // get first argument - INPUT DEVICE
     unsigned char cameraCode;
@@ -189,6 +189,7 @@ void videoStream(cv::VideoCapture &vidCap, int sockfd, sockaddr_in &servaddr, so
             if (frame.empty())
                 continue;
 
+            cv::cvtColor(frame, frame, CV_BGR2RGB);
             // use opencv to encode and compress the frame as a jpg
             cv::imencode(".jpg", frame, encoded, compression_params);
 

@@ -8,10 +8,10 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_address = ('localhost', 12346)
 
 # fps quality resolution-x resolution-y
-fps = 30
-quality = 100
-resolution_x = 320
-resolution_y = 240
+fps = 10
+quality = 5
+resolution_x = 1028
+resolution_y = 720
 
 message = struct.pack("! B B H H", fps, quality, resolution_x, resolution_y)
 
