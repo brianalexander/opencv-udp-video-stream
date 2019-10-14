@@ -1,0 +1,32 @@
+{
+  "connPort": 12345,
+  "devices": {
+    "camera1": {
+      "device": "0",
+      "fps": 30,
+      "quality": 10,
+      "resolutionX": 1280,
+      "resolutionY": 960,
+      "targetPort": 23456,
+      "paused": false
+    },
+    "camera2": {
+      "device": "192.168.1.73",
+      "udpPort": 23457,
+      "fps": 30,
+      "quality": 50,
+      "resolutionX": 640,
+      "resolutionY": 480,
+      "paused": false
+    },
+    "camera3": {
+      "device": "192.168.1.99",
+      "udpPort": 23458,
+      "fps": 30,
+      "quality": 50,
+      "resolutionX": 640,
+      "resolutionY": 480,
+      "paused": false
+    }
+  }
+}

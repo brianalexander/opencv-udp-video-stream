@@ -22,6 +22,7 @@ unsigned char FPS;
 unsigned char JPG_QUALITY;
 unsigned short resolutionX;
 unsigned short resolutionY;
+
 unsigned char updateStreamConfigurationFlag = 0;
 
 void videoStream(cv::VideoCapture &vidCap, int sockfd, sockaddr_in &servaddr, socklen_t servAddrLen);
@@ -162,6 +163,8 @@ int main(int argc, char *argv[])
     close(configListenerSockFD);
     return 0;
 }
+
+
 
 void videoStream(cv::VideoCapture &vidCap, int sockfd, sockaddr_in &servaddr, socklen_t servAddrLen)
 {
