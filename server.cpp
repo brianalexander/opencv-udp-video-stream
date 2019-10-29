@@ -128,6 +128,24 @@ void sendConfiguration(Camera &camera, unsigned char *configurationBuffer, unsig
     socket.close();
 }
 
+void sendServerStatus() //check if server has crashed and send result
+{
+    using asio::ip::udp;
+
+    asio::io_context io_context;
+
+    udp::endpoint remote_endpoint = camera.endpoint;
+
+    // Create and open socket
+    udp::socket socket(io_context);
+    socket.open(udp::v4());
+
+    socket.send_to(asio::buffer(&numPacks, sizeof(numPacks)), remote_endpoint);
+    socket.send_to(asio::buffer(configurationBuffer, numPacks), remote_endpoint);
+
+    socket.close();
+}
+
 /**
  * ONE COPY FOR EACH VIDEO STREAM
  * */

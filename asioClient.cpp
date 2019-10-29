@@ -17,7 +17,7 @@
 // function declarations
 void configurationListener();
 void videoStreamWriter();
-
+bool checkServerCrash();
 // global variables
 ConfigurationPacket currentConfig;
 unsigned short configurationPort;
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 {
     // start configuration listener
     std::thread configListenerThread(configurationListener);
-
+    std::thread checkServerCrashThread(checkServerCrash);
     // start video stream in paused state
     std::thread vidStreamThread(videoStreamWriter);
     asio::socket_base::send_buffer_size option;
@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
     // wait for threads to finish before quitting
     configListenerThread.join();
     vidStreamThread.join();
+    checkServerCrashThread.join();
 }
 
 void configurationListener()
@@ -109,6 +110,24 @@ void configurationListener()
     }
 }
 
+bool checkServerCrash() 
+{
+    while (true) 
+    {
+        asio::ip::udp::endpoint remote_endpoint;
+        asio::error_code error;
+        recv_bytes = udpSocket.receive_from(asio::buffer(buf, 100), remote_endpoint);
+        if (recv_bytes == 0) 
+        {
+            return false
+        } else 
+        {
+            return true
+        }
+        std::this_thread::sleep_for (std::chrono::seconds(5));
+    }
+}
+
 void videoStreamWriter()
 {
     cv::VideoCapture vidCap;
@@ -129,7 +148,7 @@ void videoStreamWriter()
 
     std::cout << "begin streaming" << std::endl;
 
-    while (true)
+    while (checkServerCrash() == true)
     {
         std::cout << "mainloop" << std::endl;
         udp::endpoint remote_endpoint = udp::endpoint(
